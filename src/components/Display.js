@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const Display = ({out}) => {
+const Display = ( ) => {
+  const [data, setData] = useState([])
   const navigate = useNavigate();
-  const location = useLocation();
-  console.log("location", location);
-  const data = location.state;
-
+  useEffect(() => {
+    const dummyData = JSON.parse(localStorage.getItem("user"))
+    if(dummyData){
+      setData(dummyData)
+    }
+  }, [])
+  const location = useLocation()
+  console.log("location",location);
+  console.log("DAraaa",data);
   const clickNew = () => {
       
     navigate("/registration");
   };
 
   const clickOut = () => {
-      out()
+      // out()
      navigate("/login")
   };
 
@@ -24,11 +30,10 @@ const Display = ({out}) => {
   const deleteHandler =() => {
 
 }
+console.log("disolay data",data);
 
   return (
     <div>
-      
-
       <div className="container">
         <table className="table table-dark bg-dark">
           <thead style={{color:"orange"}}>
@@ -38,7 +43,7 @@ const Display = ({out}) => {
             <th>City</th>
           </thead>
           <tbody>
-            {data.map((item) => {
+            {data && data.length > 0 && data.map((item) => {
               return (
                 <tr className="table-active">
                   <td>{item.name}</td>
@@ -62,7 +67,7 @@ const Display = ({out}) => {
         </table>
       </div>
 
-      <button className="btn btn-primary" onClick={() => clickNew()}>
+      <button className="btn btn-primary m-2" onClick={() => clickNew()}>
         Add New User
       </button>
 

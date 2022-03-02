@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-
-const getdata = () => {
-  const data = localStorage.getItem("user");
-  if (data) {
-    return JSON.parse(data);
-  } else {
-    return [];
-  }
-};
  const Registration = () => {
-  const [user, setUser] = useState(getdata());
+  const [user, setUser] = useState([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
@@ -27,10 +18,17 @@ const getdata = () => {
   const [cityerror, setCityError] = useState("");
 
   const navigate=useNavigate();
+  useEffect(() => {
+    const dummyData = JSON.parse(localStorage.getItem('user'))
+    console.log("+++++++dummyData",dummyData);
+     if(dummyData){
+       setUser(dummyData) 
+     }
+  }, [])
+  console.log("user",user);
 
   const handlesubmit = (e) => {
     e.preventDefault();
-    navigate("/login")
 
 
     let data = {
@@ -66,7 +64,11 @@ const getdata = () => {
     } else if (password != cpass) {
       setValidCPass("paccword &cpassword not match");
     } else {
-      setUser([...user, data]);
+      console.log("data",data);
+      
+      console.log("++++++++++++user",user);
+      setUser(user.push(data));
+      localStorage.setItem("user", JSON.stringify(user));
       alert("data added succeccfully");
       setName("");
       setEmail("");
@@ -74,12 +76,14 @@ const getdata = () => {
       setCPass("");
       setAddress("");
       setCity("");
+      navigate("/login")
+
     }
   };
 
-  useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(user));
-  }, [user]);
+  /* useEffect(() => {
+    
+  }, [user]); */
   return (
     <>
       <div className="container py-5">

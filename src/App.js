@@ -8,41 +8,22 @@ import Display from "./components/Display";
 import Footer from "./components/Footer";
 import { useState } from "react";
 import { useEffect } from "react";
+import PrivateRouter from './components/PrivateRouter';
+import Hello from './components/Hello';
 
 function App() {
-  const [logged, setLogged] = useState(false);
-  useEffect(() => {
-    const value = localStorage.getItem("key");
-    value ? setLogged(true) : setLogged(false);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("key", logged);
-  }, [logged]);
   return (
     <>
       <div className="App">
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" exact={true} element={<Home />} />
             <Route path="/registration" element={<Registration />} />
-
-            {!logged && (
-              <Route
-                path="/login"
-                element={<Login auth={() => setLogged(true)} />}
-              />
-            )}
-
-            {logged && (
-              <Route
-                path="/display"
-                element={<Display out={() => setLogged(false)} />}
-              />
-            )}
+            <Route path="/login" element={<Login />} />
+            <Route path="/hello" exact={true} element={<Hello />} />
+            <Route path="/display" element={<PrivateRouter><Display/></PrivateRouter>}/>
           </Routes>
-          {/* <Footer /> */}
         </BrowserRouter>
       </div>
     </>

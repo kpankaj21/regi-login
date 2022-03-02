@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
  const Navbar = () => {
   return (
     
-    <div className="bg-info mb-5 pb-2">
+    <div className="bg-dark mb-5 pb-2">
 
     <nav>
       
@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
             fontSize: "30px",
 
             fontWeight: "bold",
-            color: "red",
+            color: "white",
           }}
         >
           Home
@@ -27,7 +27,7 @@ import { Link } from "react-router-dom";
             padding: "8px",
 
             fontWeight: "bold",
-            color: "blue",
+            color: "white",
           }}
         >
           Registration
@@ -39,7 +39,7 @@ import { Link } from "react-router-dom";
             fontSize: "30px",
             padding: "8px",
             fontWeight: "bold",
-            color: "green",
+            color: "white",
           }}
         >
           Login
@@ -50,7 +50,7 @@ import { Link } from "react-router-dom";
           style={{
             fontSize: "30px",
             fontWeight: "bold",
-            color: "yellow",
+            color: "white",
           }}
         >
           Display
